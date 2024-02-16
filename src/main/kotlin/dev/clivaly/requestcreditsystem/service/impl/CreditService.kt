@@ -1,6 +1,7 @@
 package dev.clivaly.requestcreditsystem.service.impl
 
 import dev.clivaly.requestcreditsystem.entity.Credit
+import dev.clivaly.requestcreditsystem.exception.BusinessException
 import dev.clivaly.requestcreditsystem.repository.CreditRepository
 import dev.clivaly.requestcreditsystem.service.ICreditService
 import org.springframework.stereotype.Service
@@ -23,8 +24,8 @@ class CreditService(
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
         val credit: Credit = this.creditRepository.findByCreditCode(creditCode)
-            ?: throw RuntimeException("CreditCode $creditCode no found")
-        return if (credit.customer?.id == customerId) credit else throw RuntimeException("Contact admin")
+            ?: throw BusinessException("CreditCode $creditCode no found")
+        return if (credit.customer?.id == customerId) credit else throw IllegalArgumentException("Contact admin")
 //        Forma tradicional e If / Else
 //        if (credit.customer?.id == customerId) {
 //            return credit
