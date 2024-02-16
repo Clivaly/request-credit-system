@@ -1,14 +1,16 @@
 package dev.clivaly.requestcreditsystem.dto
 
 import dev.clivaly.requestcreditsystem.entity.Customer
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
 import java.math.BigDecimal
 
 data class CustomerUpdateDto(
-    val fistName: String,
-    val lastName: String,
-    val income: BigDecimal,
-    val zipCode: String,
-    val street: String,
+    @field:NotEmpty(message = "Invalid input, put a valid FirstNme") val fistName: String,
+    @field:NotEmpty(message = "Invalid input, put a valid LastName") val lastName: String,
+    @field:NotNull(message = "Invalid input, put a valid income") val income: BigDecimal,
+    @field:NotEmpty(message = "Invalid input, put a valid ZipCode") val zipCode: String,
+    @field:NotEmpty(message = "Invalid input, put a valid Street") val street: String,
 ) {
     fun toEntity(customer: Customer): Customer {
         customer.firstName = this.fistName
